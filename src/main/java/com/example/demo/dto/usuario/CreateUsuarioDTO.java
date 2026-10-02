@@ -17,6 +17,11 @@ public class CreateUsuarioDTO {
     )
     private String cpf;
 
+    public CreateUsuarioDTO(String nome, String cpf) {
+        this.nome = nome;
+        this.cpf = cpf;
+    }
+
     public String getNome() {
         return nome;
     }

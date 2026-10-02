@@ -1,12 +1,9 @@
-package com.example.demo.dto.agendamento;
+package com.example.demo.dto.transferencia;
 
-import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
-import java.time.LocalDateTime;
-
-public class CreateAgendamentoDTO {
+public class TransferenciaRequest {
 
     @NotNull(message = "Conta de origem é obrigatória")
     private Long contaOrigemId;
@@ -18,14 +15,9 @@ public class CreateAgendamentoDTO {
     @Positive(message = "Valor deve ser maior que zero")
     private Long valorCentavos;
 
-    @NotNull(message = "Data de execução é obrigatória")
-    @Future(message = "Data de execução deve estar no futuro")
-    private LocalDateTime executarEm;
-
     public Long getContaOrigemId() {
         return contaOrigemId;
     }
-
     public void setContaOrigemId(Long contaOrigemId) {
         this.contaOrigemId = contaOrigemId;
     }
@@ -33,7 +25,6 @@ public class CreateAgendamentoDTO {
     public Long getContaDestinoId() {
         return contaDestinoId;
     }
-
     public void setContaDestinoId(Long contaDestinoId) {
         this.contaDestinoId = contaDestinoId;
     }
@@ -41,16 +32,5 @@ public class CreateAgendamentoDTO {
     public Long getValorCentavos() {
         return valorCentavos;
     }
-
-    public void setValorCentavos(Long valorCentavos) {
-        this.valorCentavos = valorCentavos;
-    }
-
-    public LocalDateTime getExecutarEm() {
-        return executarEm;
-    }
-
-    public void setExecutarEm(LocalDateTime executarEm) {
-        this.executarEm = executarEm;
-    }
+    public void setValorCentavos(Long valorCentavos) { this.valorCentavos = valorCentavos; }
 }

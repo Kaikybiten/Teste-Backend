@@ -20,15 +20,11 @@ public class GlobalExceptionHandler {
             HttpServletRequest request
     ) {
 
-        // Pega o primeiro erro encontrado
-        FieldError fieldError =
-                exception.getBindingResult().getFieldErrors().get(0);
+        FieldError fieldError = exception.getBindingResult().getFieldErrors().getFirst();
 
-        // Dados do erro
         String codigo = "VALIDACAO_INVALIDA";
         String message = fieldError.getDefaultMessage();
 
-        // Monta a resposta
         ErrorResponseDTO resposta = new ErrorResponseDTO(
                 OffsetDateTime.now(),
                 HttpStatus.UNPROCESSABLE_ENTITY.value(),
@@ -38,8 +34,42 @@ public class GlobalExceptionHandler {
                 request.getRequestURI()
         );
 
-        return ResponseEntity
-                .status(HttpStatus.UNPROCESSABLE_ENTITY)
-                .body(resposta);
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(resposta);
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ErrorResponseDTO> illegalArgumentError(
+            IllegalArgumentException exception,
+            HttpServletRequest request
+    ) {
+
+        ErrorResponseDTO resposta = new ErrorResponseDTO(
+                OffsetDateTime.now(),
+                HttpStatus.UNPROCESSABLE_ENTITY.value(),
+                HttpStatus.UNPROCESSABLE_ENTITY.getReasonPhrase(),
+                "REGRA_NEGOCIO",
+                exception.getMessage(),
+                request.getRequestURI()
+        );
+
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(resposta);
+    }
+
+    @ExceptionHandler(IllegalStateException.class)
+    public ResponseEntity<ErrorResponseDTO> illegalStateError(
+            IllegalStateException exception,
+            HttpServletRequest request
+    ) {
+
+        ErrorResponseDTO resposta = new ErrorResponseDTO(
+                OffsetDateTime.now(),
+                HttpStatus.CONFLICT.value(),
+                HttpStatus.CONFLICT.getReasonPhrase(),
+                "OPERACAO_INVALIDA",
+                exception.getMessage(),
+                request.getRequestURI()
+        );
+
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(resposta);
     }
 }

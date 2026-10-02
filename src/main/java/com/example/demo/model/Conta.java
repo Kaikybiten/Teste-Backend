@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import com.example.demo.dto.conta.CreateContaDTO;
+import com.example.demo.enums.EstadoConta;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -28,8 +29,9 @@ public class Conta {
     @Column(name = "limite_diario_centavos", nullable = false)
     private Long limiteDiarioCentavos;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 10)
-    private String estado;
+    private EstadoConta estado;
 
     @Column(nullable = false)
     private Long versao = 0L;
@@ -76,10 +78,10 @@ public class Conta {
         this.limiteDiarioCentavos = limiteDiarioCentavos;
     }
 
-    public String getEstado() {
+    public EstadoConta getEstado() {
         return estado;
     }
-    public void setEstado(String estado) {
+    public void setEstado(EstadoConta estado) {
         this.estado = estado;
     }
 

@@ -1,9 +1,11 @@
 package com.example.demo.model;
 
+import com.example.demo.enums.TipoMovimento;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 @Entity
@@ -36,8 +38,9 @@ public class Movimento {
     private Long sequencia;
 
     @NotNull
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 7)
-    private String tipo;
+    private TipoMovimento tipo;
 
     @NotNull
     @Positive
@@ -49,7 +52,7 @@ public class Movimento {
     private Long saldoAposCentavos;
 
     @Column(name = "criado_em", nullable = false)
-    private LocalDateTime criadoEm;
+    private Instant criadoEm;
 
     public Long getId() {
         return id;
@@ -58,7 +61,6 @@ public class Movimento {
     public Conta getConta() {
         return conta;
     }
-
     public void setConta(Conta conta) {
         this.conta = conta;
     }
@@ -66,7 +68,6 @@ public class Movimento {
     public Transferencia getTransferencia() {
         return transferencia;
     }
-
     public void setTransferencia(Transferencia transferencia) {
         this.transferencia = transferencia;
     }
@@ -74,23 +75,18 @@ public class Movimento {
     public Long getSequencia() {
         return sequencia;
     }
-
     public void setSequencia(Long sequencia) {
         this.sequencia = sequencia;
     }
 
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
+    public TipoMovimento getTipo() { return tipo; }
+    public void setTipo(TipoMovimento tipo) {
         this.tipo = tipo;
     }
 
     public Long getValorCentavos() {
         return valorCentavos;
     }
-
     public void setValorCentavos(Long valorCentavos) {
         this.valorCentavos = valorCentavos;
     }
@@ -98,16 +94,14 @@ public class Movimento {
     public Long getSaldoAposCentavos() {
         return saldoAposCentavos;
     }
-
     public void setSaldoAposCentavos(Long saldoAposCentavos) {
         this.saldoAposCentavos = saldoAposCentavos;
     }
 
-    public LocalDateTime getCriadoEm() {
+    public Instant getCriadoEm() {
         return criadoEm;
     }
-
-    public void setCriadoEm(LocalDateTime criadoEm) {
+    public void setCriadoEm(Instant criadoEm) {
         this.criadoEm = criadoEm;
     }
 }
